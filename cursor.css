@@ -1,0 +1,68 @@
+/* Hide default cursor */
+body {
+    cursor: none;
+}
+
+a,
+button,
+input,
+textarea,
+.cursor-hover {
+    cursor: none;
+}
+
+/* Cursor Dot (Small, fixed) */
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #6366f1;
+    /* Primary color */
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+/* Cursor Outline (Larger, follows with delay) */
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(99, 102, 241, 0.5);
+    /* Primary color with opacity */
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9998;
+    transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+/* Hover State */
+body.hovering .cursor-dot {
+    width: 12px;
+    height: 12px;
+    background-color: #a855f7;
+    /* Secondary color */
+}
+
+body.hovering .cursor-outline {
+    width: 60px;
+    height: 60px;
+    border-color: rgba(168, 85, 247, 0.5);
+    /* Secondary color */
+    background-color: rgba(168, 85, 247, 0.1);
+}
+
+#animation .text-xl {
+    font-size: 1.5rem;
+    /* color: #a18f17; */
+
+    color: currentColor;
+    letter-spacing: 0.06em;
+}

@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MERN Stack Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/animejs/dist/bundles/anime.umd.min.js"></script> -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=mail" />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap&family=Caveat:wght@400..700&display=swap&family=IBM+Plex+Mono:wght@400&display=swap&family=Nixie+One&display=swap&family=Bungee+Outline&display=swap&family=Science+Gothic:wght@100..900&display=swap&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap&family=Bungee+Spice&display=swap&family=Playwrite+NZ+Guides&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap&family=Black+Ops+One&display=swap&effect=3d-float">
+    <link rel="stylesheet" href="cursor.css">
+    <link rel="stylesheet" href="nameFont.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['outfit', 'nixie-one-regular'],
+                    },
+                    colors: {
+                        primary: '#6366f1', // Indigo 500
+                        secondary: '#a855f7', // Purple 500
+                        dark: '#0f172a', // Slate 900
+                    },
+                    animation: {
+                        scroll: 'scroll 40s linear infinite',
+                        'scroll-reverse': 'scroll-reverse 40s linear infinite',
+                    },
+                    keyframes: {
+                        scroll: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        },
+                        'scroll-reverse': {
+                            '0%': { transform: 'translateX(-50%)' },
+                            '100%': { transform: 'translateX(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .dark .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        /* Electric Border Effect */
+        .electric-border {
+            position: relative;
+            overflow: hidden;
+            padding: 2px;
+            border-radius: 0.75rem;
+            z-index: 0;
+        }
+
+        .electric-border::before {
+            content: '';
+            position: absolute;
+            inset: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, #6366f1, #7bcb0c, transparent 30%);
+            animation: rotate 4s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(1turn);
+            }
+        }
+
+        /* Custom Scrollbar for Skills Section */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(45, 170, 17, 0.5);
+            /* Primary color with opacity */
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(30, 37, 19, 0.8);
+        }
+
+        .pause:hover {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+
+<body
+onload="findMe()"
+    class="bg-gray-50 dark:bg-dark text-gray-900 dark:text-white font-sans antialiased selection:bg-primary selection:text-white transition-colors duration-300">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav border-b border-gray-200 dark:border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="pd-4 fugaz-one-regular text-shadow-lg/30  flex-shrink-0">
+                    <a href="#"
+                        class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+                        DevPortfolio
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class=" ml-10 flex items-baseline space-x-8">
+                        <a href="#home"
+                            class=" hover:text-secondary transition-colors px-3 py-2 rounded-md text-sm font-medium nixie-one-regular ">Home</a>
+                        <a href="#about"
+                            class=" hover:text-secondary transition-colors px-3 py-2 rounded-md text-sm font-medium nixie-one-regular ">About</a>
+                        <a href="#skills"
+                            class=" hover:text-secondary transition-colors px-3 py-2 rounded-md text-sm font-medium nixie-one-regular ">Skills</a>
+                        <a href="#projects"
+                            class=" hover:text-secondary transition-colors px-3 py-2 rounded-md text-sm font-medium nixie-one-regular ">Projects</a>
+                        <a href="./contactform.html"
+                            class=" hover:text-secondary transition-colors px-3 py-2 rounded-md text-sm font-medium nixie-one-regular ">Contact</a>
+
+                        <!-- Theme Toggle Button (Desktop) -->
+                        <button id="theme-toggle"
+                            class="ml-4 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-white/10 transition-colors focus:outline-none">
+                            <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
+                            <i class="fas fa-moon text-primary hidden dark:block"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <!-- Theme Toggle Button (Mobile) -->
+                    <button id="theme-toggle-mobile"
+                        class="mr-4 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-white/10 transition-colors focus:outline-none">
+                        <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
+                        <i class="fas fa-moon text-primary hidden dark:block"></i>
+                    </button>
+                    <button id="mobile-menu-btn"
+                        class="text-gray-500 dark:text-gray-300 hover:text-dark dark:hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white dark:bg-dark border-b border-gray-200 dark:border-white/10">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home"
+                    class="nixie-one-regular block hover:bg-gray-100 dark:hover:bg-white/5 px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#about"
+                    class="nixie-one-regular block hover:bg-gray-100 dark:hover:bg-white/5 px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="#skills"
+                    class="nixie-one-regular block hover:bg-gray-100 dark:hover:bg-white/5 px-3 py-2 rounded-md text-base font-medium">Skills</a>
+                <a href="#projects"
+                    class="nixie-one-regular block hover:bg-gray-100 dark:hover:bg-white/5 px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                <a href="./contactform.html"
+                    class="nixie-one-regular block hover:bg-gray-100 dark:hover:bg-white/5 px-3 py-2 rounded-md text-base font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
+        <!-- Background Blobs -->
+        <div
+            class="absolute top-20 left-10 w-72 h-72 bg-primary/30 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob">
+        </div>
+        <div
+            class="absolute top-20 right-10 w-72 h-72 bg-secondary/30 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000">
+        </div>
+        <div
+            class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-600/30 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+
+
+
+            <div class="large grid centered square-grid">
+
+                <h2 class="bungee-outline-regular 
+                sm:text-3xl 
+                md:text-6xl 
+                lg:text-7xl 
+                xl:text-8xl 
+                2xl:text-8xl 
+                italic
+                text-2xl 
+                text-shadow-lg/30
+               
+                font-bold
+                dark:text-white 
+                white:text-blue-500 
+                dark:text-yellow-500 
+                mb-4 uppercase">
+                    Hello,
+                    I'm krishna
+                </h2>
+            </div>
+            <h1 class="science-gothic-regular text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                MERN Stack <br>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">Developer</span>
+            </h1>
+            <p class="playfair-display-regular mt-4 max-w-2xl mx-auto text-xl text-gray-500 dark:text-gray-400 mb-10">
+                I build accessible, pixel-perfect, and performant web applications. Passionate about creating seamless
+                user experiences.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#projects"
+                    class=" px-8 py-3 rounded-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity font-semibold text-white shadow-lg shadow-primary/25">
+                    View Projects
+                </a>
+                <a href="./contactform.html"
+                    class=" px-8 py-3 rounded-full border border-gray-300 dark:border-white/20 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors font-semibold text-gray-900 dark:text-white">
+                    Contact Me
+                </a>
+                <a href="#contact"
+                    class=" px-8 py-3 rounded-full border border-gray-300 dark:border-white/20 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors font-semibold text-gray-900 dark:text-white">
+                    Download CV
+                </a>
+            </div>
+
+            <div class="mt-16 flex justify-center space-x-6 text-gray-500 dark:text-gray-400">
+                <a href="https://github.com/vetapalem"
+                    class="hover:text-primary dark:hover:text-white transition-colors text-2xl"><i
+                        class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/krishna-pg-76565333b/"
+                    class="hover:text-primary dark:hover:text-white transition-colors text-2xl"><i
+                        class="fab fa-linkedin"></i></a>
+                <a href="mailto:krishnapostgraduation@gmail.com"
+                    class="hover:text-primary dark:hover:text-white transition-colors text-2xl">
+                    <span class="material-symbols-outlined">
+                        mail
+                    </span></a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white/50 dark:bg-dark/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bungee-spice-regular text-center mb-16">
+                <h2 class=" text-3xl md:text-4xl font-bold mb-4">About Me</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="relative group">
+                    <div
+                        class="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200">
+                    </div>
+                    <div
+                        class="playwrite-nz-guides-regular relative bg-white dark:bg-slate-800 rounded-2xl p-8 border border-gray-200 dark:border-white/10 shadow-lg dark:shadow-none">
+                        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                            I am a passionate MERN Stack Developer with a strong foundation in web technologies. I love
+                            solving complex problems and turning ideas into reality through code.
+                        </p>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                            My journey started with curiosity about how websites work, and now I specialize in building
+                            full-stack applications using MongoDB, Express.js, React, and Node.js. I am constantly
+                            learning and evolving with the latest tech trends.
+                        </p>
+                    </div>
+                </div>
+                <div class="grid custom-scrollbar bg-transparent  grid-cols-2 gap-4 p-6">
+                    <div
+                        class="p-6 bg-white dark:bg-slate-800/50 rounded-xl border border-gray-200 dark:border-white/5 text-center hover:border-primary/50 transition-colors shadow-md dark:shadow-none">
+                        <h3 class="text-4xl font-bold text-primary mb-2">1</h3>
+                        <p class="text-gray-500 dark:text-gray-400">Years Experience</p>
+                    </div>
+                    <div
+                        class="p-6 bg-white dark:bg-slate-800/50 rounded-xl border border-gray-200 dark:border-white/5 text-center hover:border-secondary/50 transition-colors shadow-md dark:shadow-none">
+                        <h3 class="text-4xl font-bold text-secondary mb-2">10+</h3>
+                        <p class="text-gray-500 dark:text-gray-400">Projects Completed</p>
+                    </div>
+                    <div
+                        class="p-6 bg-white dark:bg-slate-800/50 rounded-xl border border-gray-200 dark:border-white/5 text-center hover:border-pink-500/50 transition-colors shadow-md dark:shadow-none">
+                        <h3 class="text-4xl font-bold text-pink-500 mb-2">24/7</h3>
+                        <p class="text-gray-500 dark:text-gray-400">Support</p>
+                    </div>
+                    <div
+                        class="p-6 bg-white dark:bg-slate-800/50 rounded-xl border border-gray-200 dark:border-white/5 text-center hover:border-blue-500/50 transition-colors shadow-md dark:shadow-none">
+                        <h3 class="text-4xl font-bold text-blue-500 mb-2">100%</h3>
+                        <p class="text-gray-500 dark:text-gray-400">Client Satisfaction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bungee-spice-regular text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">My Skills</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Marquee Container -->
+            <div class="relative w-full overflow-hidden">
+                <!-- Gradient Masks -->
+                <div
+                    class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-gray-50 dark:from-dark to-transparent z-10">
+                </div>
+                <div
+                    class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-gray-50 dark:from-dark to-transparent z-10">
+                </div>
+
+                <!-- Scrolling Track -->
+                <div id="skills-track" class="flex animate-scroll pause w-max">
+                    <!-- Skill Items -->
+
+                    <div
+                        class="flex-shrink-0 w-48 p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-white/10 hover:border-primary/50 transition-all hover:scale-110 group shadow-md dark:shadow-none flex flex-col items-center justify-center gap-4 mr-8">
+                        <i class="fab fa-python text-5xl text-blue-400"></i>
+                        <h3 class="ibm-plex-mono-thin text-lg font-semibold">Python</h3>
+                    </div>
+                    <div
+                        class="flex-shrink-0 w-48 p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-white/10 hover:border-primary/50 transition-all hover:scale-110 group shadow-md dark:shadow-none flex flex-col items-center justify-center gap-4 mr-8">
+                        <i class="fab fa-react text-5xl text-blue-400"></i>
+                        <h3 class="ibm-plex-mono-thin text-lg font-semibold">React.js</h3>
+                    </div>
+                    <div
+                        class="flex-shrink-0 w-48 p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-white/10 hover:border-primary/50 transition-all hover:scale-110 group shadow-md dark:shadow-none flex flex-col items-center justify-center gap-4 mr-8">
+                        <i class="fab fa-node text-5xl text-green-500"></i>
+                        <h3 class="ibm-plex-mono-thin text-lg font-semibold">Node.js</h3>
+                    </div>
+                    <div
+                        class="flex-shrink-0 w-48 p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-white/10 hover:border-primary/50 transition-all hover:scale-110 group shadow-md dark:shadow-none flex flex-col items-center justify-center gap-4 mr-8">
+                        <i class="fas fa-database text-5xl text-green-400"></i>
+                        <h3 class="ibm-plex-mono-thin text-lg font-semibold">MongoDB</h3>
+                    </div>
+                    <div
+                        class="flex-shrink-0 w-48 p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-white/10 hover:border-primary/50 transition-all hover:scale-110 group shadow-md dark:shadow-none flex flex-col items-center justify-center gap-4 mr-8">
+                        <i class="fab fa-js text-5xl text-yellow-400"></i>
+                        <h3 class="ibm-plex-mono-thin text-lg font-semibold">JavaScript</h3>
+                    </div>
+                    <div
+                        class="flex-shrink-0 w-48 p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-white/10 hover:border-primary/50 transition-all hover:scale-110 group shadow-md dark:shadow-none flex flex-col items-center justify-center gap-4 mr-8">
+                        <i class="fab fa-html5 text-5xl text-orange-500"></i>
+                        <h3 class="ibm-plex-mono-thin text-lg font-semibold">HTML5</h3>
+                    </div>
+                    <div
+                        class="flex-shrink-0 w-48 p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-white/10 hover:border-primary/50 transition-all hover:scale-110 group shadow-md dark:shadow-none flex flex-col items-center justify-center gap-4 mr-8">
+                        <i class="fab fa-css3-alt text-5xl text-blue-500"></i>
+                        <h3 class="ibm-plex-mono-thin text-lg font-semibold">CSS3</h3>
+                    </div>
+                    <div
+                        class="flex-shrink-0 w-48 p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-white/10 hover:border-primary/50 transition-all hover:scale-110 group shadow-md dark:shadow-none flex flex-col items-center justify-center gap-4 mr-8">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50"
+                            viewBox="0 0 48 48">
+                            <path fill="#00acc1"
+                                d="M24,9.604c-6.4,0-10.4,3.199-12,9.597c2.4-3.199,5.2-4.398,8.4-3.599 c1.826,0.456,3.131,1.781,4.576,3.247C27.328,21.236,30.051,24,36,24c6.4,0,10.4-3.199,12-9.598c-2.4,3.199-5.2,4.399-8.4,3.6 c-1.825-0.456-3.13-1.781-4.575-3.247C32.672,12.367,29.948,9.604,24,9.604L24,9.604z M12,24c-6.4,0-10.4,3.199-12,9.598 c2.4-3.199,5.2-4.399,8.4-3.599c1.825,0.457,3.13,1.781,4.575,3.246c2.353,2.388,5.077,5.152,11.025,5.152 c6.4,0,10.4-3.199,12-9.598c-2.4,3.199-5.2,4.399-8.4,3.599c-1.826-0.456-3.131-1.781-4.576-3.246C20.672,26.764,17.949,24,12,24 L12,24z">
+                            </path>
+                        </svg>
+
+                        <h3 class="ibm-plex-mono-thin text-lg font-semibold">Tailwind CSS</h3>
+                    </div>
+                    <div
+                        class="flex-shrink-0 w-48 p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-white/10 hover:border-primary/50 transition-all hover:scale-110 group shadow-md dark:shadow-none flex flex-col items-center justify-center gap-4 mr-8">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50"
+                            viewBox="0 0 48 48">
+                            <rect width="5" height="10" x="18" y="4" fill="#1a237e"></rect>
+                            <rect width="5" height="10" x="18" y="25" fill="#1a237e"></rect>
+                            <rect width="5" height="5" x="18" y="17" fill="#fbc02d"></rect>
+                            <rect width="5" height="33" x="10" y="13" fill="#1a237e"></rect>
+                            <rect width="5" height="10" x="26" y="33" fill="#1a237e"></rect>
+                            <rect width="5" height="10" x="26" y="12" fill="#1a237e"></rect>
+                            <rect width="5" height="5" x="26" y="25" fill="#ff4081"></rect>
+                            <rect width="5" height="33" x="34" y="2" fill="#1a237e"></rect>
+                        </svg>
+                        <h3 class="ibm-plex-mono-thin text-lg font-semibold">Pandas</h3>
+                    </div>
+                    <div
+                        class="flex-shrink-0 w-48 p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-white/10 hover:border-primary/50 transition-all hover:scale-110 group shadow-md dark:shadow-none flex flex-col items-center justify-center gap-4 mr-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50"
+                            viewBox="0 0 48 48">
+                            <polygon fill="#00acc1" points="21.196,12.276 14.392,8.842 6.922,12.569 13.912,16.078">
+                            </polygon <polygon fill="#00acc1"
+                                points="24.317,13.85 31.451,17.453 24.049,21.169 17.049,17.654">
+                            </polygon>
+                            <polygon fill="#00acc1" points="33.846,8.893 41.176,12.569 34.619,15.86 27.47,12.254">
+                            </polygon>
+                            <polygon fill="#00acc1" points="30.69,7.31 24.091,4 17.564,7.258 24.364,10.687"></polygon>
+                            <polygon fill="#00acc1" points="25.532,35.725 25.532,44.73 33.525,40.74 33.518,31.732">
+                            </polygon>
+                            <polygon fill="#00acc1" points="33.514,28.587 33.505,19.674 25.532,23.637 25.532,32.554">
+                            </polygon>
+                            <polygon fill="#00acc1" points="43.111,26.918 43.111,35.957 36.292,39.359 36.287,30.361">
+                            </polygon>
+                            <polygon fill="#00acc1" points="43.111,23.756 43.111,14.898 36.279,18.294 36.285,27.225">
+                            </polygon>
+                            <path fill="#448aff"
+                                d="M22.71,23.637l-5.384-2.708v11.699c0,0-6.586-14.012-7.195-15.27 c-0.079-0.163-0.401-0.341-0.484-0.385C8.46,16.353,5,14.601,5,14.601v20.676l4.787,2.566V27.031c0,0,6.515,12.52,6.582,12.657 s0.718,1.455,1.418,1.919c0.929,0.618,4.919,3.016,4.919,3.016L22.71,23.637z">
+                            </path>
+                        </svg>
+                        <h3 class="ibm-plex-mono-thin text-lg font-semibold">Numpy</h3>
+                    </div>
+
+                    <div
+                        class="flex-shrink-0 w-48 p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-white/10 hover:border-primary/50 transition-all hover:scale-110 group shadow-md dark:shadow-none flex flex-col items-center justify-center gap-4 mr-8">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50"
+                            viewBox="0,0,256,256">
+                            <g fill="#dddddd" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                                font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                                style="mix-blend-mode: normal">
+                                <path d="M0,256v-256h256v256z" id="bgRectangle"></path>
+                            </g>
+                            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                                font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                                style="mix-blend-mode: normal">
+                                <g transform="scale(5.33333,5.33333)">
+                                    <circle cx="24" cy="24" r="21" fill="#fcfdfa"></circle>
+                                    <path
+                                        d="M24,45c-11.579,0 -21,-9.421 -21,-21c0,-11.579 9.421,-21 21,-21c11.579,0 21,9.421 21,21c0,11.579 -9.421,21 -21,21zM24,4c-11.028,0 -20,8.972 -20,20c0,11.028 8.972,20 20,20c11.028,0 20,-8.972 20,-20c0,-11.028 -8.972,-20 -20,-20z"
+                                        fill="#bdbdbd"></path>
+                                    <path
+                                        d="M24,41c-9.374,0 -17,-7.626 -17,-17c0,-9.374 7.626,-17 17,-17c9.374,0 17,7.626 17,17c0,9.374 -7.626,17 -17,17zM24,8c-8.822,0 -16,7.178 -16,16c0,8.822 7.178,16 16,16c8.822,0 16,-7.178 16,-16c0,-8.822 -7.178,-16 -16,-16z"
+                                        fill="#bdbdbd"></path>
+                                    <path
+                                        d="M24,37c-7.168,0 -13,-5.832 -13,-13c0,-7.168 5.832,-13 13,-13c7.168,0 13,5.832 13,13c0,7.168 -5.832,13 -13,13zM24,12c-6.617,0 -12,5.383 -12,12c0,6.617 5.383,12 12,12c6.617,0 12,-5.383 12,-12c0,-6.617 -5.383,-12 -12,-12z"
+                                        fill="#bdbdbd"></path>
+                                    <path
+                                        d="M24,33c-4.963,0 -9,-4.037 -9,-9c0,-4.963 4.037,-9 9,-9c4.963,0 9,4.037 9,9c0,4.963 -4.037,9 -9,9zM24,16c-4.411,0 -8,3.589 -8,8c0,4.411 3.589,8 8,8c4.411,0 8,-3.589 8,-8c0,-4.411 -3.589,-8 -8,-8z"
+                                        fill="#bdbdbd"></path>
+                                    <path
+                                        d="M24,29c-2.757,0 -5,-2.243 -5,-5c0,-2.757 2.243,-5 5,-5c2.757,0 5,2.243 5,5c0,2.757 -2.243,5 -5,5zM24,20c-2.206,0 -4,1.794 -4,4c0,2.206 1.794,4 4,4c2.206,0 4,-1.794 4,-4c0,-2.206 -1.794,-4 -4,-4z"
+                                        fill="#bdbdbd"></path>
+                                    <rect x="23.5" y="3" width="1" height="21" fill="#bdbdbd"></rect>
+                                    <rect x="-0.50041" y="13.43508" transform="rotate(-45.001)" width="1"
+                                        height="20.506" fill="#bdbdbd"></rect>
+                                    <rect x="4" y="23.5" width="20" height="1" fill="#bdbdbd"></rect>
+                                    <rect x="-20.50664" y="33.44095" transform="rotate(-45.001)" width="20.506"
+                                        height="1" fill="#bdbdbd"></rect>
+                                    <rect x="23.5" y="24" width="1" height="21" fill="#bdbdbd"></rect>
+                                    <rect x="-0.50148" y="33.94038" transform="rotate(-45.001)" width="1"
+                                        height="20.408" fill="#bdbdbd"></rect>
+                                    <rect x="24" y="23.5" width="21" height="1" fill="#bdbdbd"></rect>
+                                    <rect x="-0.00054" y="33.4413" transform="rotate(-45.001)" width="20.506" height="1"
+                                        fill="#bdbdbd"></rect>
+                                    <path d="M24,24l-11,-15l6,-3z" fill="#ef6c00"></path>
+                                    <path d="M24,24l4,-14l4,2z" fill="#aed581"></path>
+                                    <path d="M8.5,20v8l15.5,-4z" fill="#ffea3b"></path>
+                                    <path d="M24,24l-2,11h4z" fill="#8bc34a"></path>
+                                    <path d="M24,24l11,15l4,-4z" fill="#ff9800"></path>
+                                    <path d="M14,28l10,-4l-9,6z" fill="#304ffe"></path>
+                                    <path d="M29.564,20.872l-5.564,3.128l6.138,-1.532z" fill="#304ffe"></path>
+                                </g>
+                            </g>
+                        </svg>
+
+                        <h3 class="ibm-plex-mono-thin text-lg font-semibold">Matplotlib</h3>
+                    </div>
+                    <div
+                        class="flex-shrink-0 w-48 p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-white/10 hover:border-primary/50 transition-all hover:scale-110 group shadow-md dark:shadow-none flex flex-col items-center justify-center gap-4 mr-8">
+                        <!-- <svg xmlns="http://www.w3.org/2000/svg" width='50' height="50" viewBox="0 0 128 128">
+                            <path
+                                d="M126.67 98.44c-4.56 1.16-7.38.05-9.91-3.75-5.68-8.51-11.95-16.63-18-24.9-.78-1.07-1.59-2.12-2.6-3.45C89 76 81.85 85.2 75.14 94.77c-2.4 3.42-4.92 4.91-9.4 3.7l26.92-36.13L67.6 29.71c4.31-.84 7.29-.41 9.93 3.45 5.83 8.52 12.26 16.63 18.67 25.21 6.45-8.55 12.8-16.67 18.8-25.11 2.41-3.42 5-4.72 9.33-3.46-3.28 4.35-6.49 8.63-9.72 12.88-4.36 5.73-8.64 11.53-13.16 17.14-1.61 2-1.35 3.3.09 5.19C109.9 76 118.16 87.1 126.67 98.44zM1.33 61.74c.72-3.61 1.2-7.29 2.2-10.83 6-21.43 30.6-30.34 47.5-17.06C60.93 41.64 63.39 52.62 62.9 65H7.1c-.84 22.21 15.15 35.62 35.53 28.78 7.15-2.4 11.36-8 13.47-15 1.07-3.51 2.84-4.06 6.14-3.06-1.69 8.76-5.52 16.08-13.52 20.66-12 6.86-29.13 4.64-38.14-4.89C5.26 85.89 3 78.92 2 71.39c-.15-1.2-.46-2.38-.7-3.57q.03-3.04.03-6.08zm5.87-1.49h50.43c-.33-16.06-10.33-27.47-24-27.57-15-.12-25.78 11.02-26.43 27.57z" />
+                        </svg> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50"
+                            viewBox="0 0 48 48">
+                            <path fill="#212121"
+                                d="M23.697,37.56h1.18c0.84,0,1.631-0.392,2.139-1.061l7.485-9.847l7.485,9.847	c0.508,0.668,1.299,1.061,2.139,1.061h1.18L35.756,25l9.121-12h-1.18c-0.84,0-1.631,0.392-2.139,1.061L34.5,23.347l-7.059-9.287	C26.933,13.392,26.142,13,25.302,13h-1.18l9.121,12L23.697,37.56z">
+                            </path>
+                            <path fill="#212121"
+                                d="M24,26v-3c0-6.675-5.945-11.961-12.829-10.852C5.812,13.011,2,17.857,2,23.284L2,24v2v0.142	c0,6.553,4.777,11.786,10.868,11.858c5.092,0.06,9.389-3.344,10.707-7.999h-1.028c-0.62,0-1.182,0.355-1.451,0.913	c-1.739,3.595-5.789,5.862-10.228,4.842C6.776,34.815,4,30.981,4,26.783V26H24z M4,23.71c0-4.708,2.804-8.557,6.924-9.478	C16.798,12.92,22,17.352,22,23v1H4V23.71z">
+                            </path>
+                        </svg>
+                        <h3 class="ibm-plex-mono-thin text-lg font-semibold">Expressjs</h3>
+                    </div>
+
+
+
+                    <div
+                        class="flex-shrink-0 w-48 p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-white/10 hover:border-primary/50 transition-all hover:scale-110 group shadow-md dark:shadow-none flex flex-col items-center justify-center gap-4 mr-8">
+                        <i class="fab fa-git-alt text-5xl text-red-500"></i>
+                        <h3 class="ibm-plex-mono-thin text-lg font-semibold">Git</h3>
+                    </div>
+                    <div
+                        class="flex-shrink-0 w-48 p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-white/10 hover:border-primary/50 transition-all hover:scale-110 group shadow-md dark:shadow-none flex flex-col items-center justify-center gap-4 mr-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" width='50' height='50' viewBox="0 0 128 128">
+                            <path fill="#010101"
+                                d="M44.44 100.63c-4.23-3.33-8.74-6.52-11.83-11.01-6.49-7.92-11.49-17.1-14.9-26.74-2.07-6.27-2.77-12.99-5.44-19.02-2.78-4.38.48-9.16 5.27-10.55 2.13-.41 5.89-2.43 1.36-.98-4.06 2.98-4.45-2.71-.29-3.07 2.84-.38 3.89-2.7 2.92-4.8-3.05-1.99 7.4-4.18 2.14-7.15-5.48-5.91 7.66-7.05 4.42-.33-.77 5.16 9.18-.95 6.87 5.01 2.35 2.86 8.8.65 8.63 4.67 3.42.24 4.6 3.11 7.8 3.33 3.33 1.5 9.36 2.69 10.49 6.44-3.3 2.61-10.95-5.4-11.31 1.84 1 10.69.74 21.7 4.65 31.88 1.85 6.16 6.33 11.01 10.38 15.81 3.88 4.7 9.12 8.01 14.48 10.8 4.69 2.21 9.75 3.68 14.87 4.6 2.07-1.59 5.74-7.48 8.97-5 .16 2.8-6.42 5.84-.31 5.54 3.59-1.08 6.08 2.77 9.04-.71 2.72 3.23 11.32-2.06 9.38 4.53-2.62 1.69-6.44.67-9.07 3-4.33-2.16-7.77 1.93-12.56 1.42-5.32.95-10.73 1.34-16.13 1.34-8.85-.7-17.89-.99-26.3-4.07-4.74-1.38-9.37-4.08-13.53-6.78zm7.47 3.24c4.63 2 9.16 4.11 14.23 4.75 8.05 1.12 16.37 2.84 24.45 1.27-3.66-1.65-7.44.64-11.08-1.18-4.37.94-9.06-.24-13.5-.82-5.05-2.25-10.5-3.8-15.23-6.72-5.91-2.16 3.06 2.77 4.65 3.17 3.69 2.1-4.06-1.08-5.16-1.95-3.09-1.74-3.49-1.37-.31.39.64.37 1.28.77 1.95 1.09zm-8.81-6.23c4.49 1.66-.02-3.16-2.07-2.88-.91-1.58-3.48-2.58-1.67-3.43-3.26 1.13-3.42-4.3-4.95-3.53-3.45-1.09-1.34-4.95-5.45-7.32-.37-2.5-4.08-4.66-5.26-8.43-.52-1.93-4.19-7.46-1.94-2.31 1.92 4.96 5.29 9.21 8.1 13.45 2.18 4.04 4.76 8.26 8.72 10.78 1.34 1.3 2.63 3.27 4.52 3.67zM30.17 83.45c.16-.68.82 1.46 0 0zm18.3 16.18c1-.44-1.43-.56 0 0zm2.44.89c-.25-1.23-1.11.69 0 0zm3.05 1.27c1.45-1.38-2.24-.87 0 0zm5.22 2.91c.89-1.3-2.82-.49 0 0zm-10.03-6.99c2.25-1.46-2.91-.02 0 0zm2.29 1.14c-.07-.77-.82.34 0 0zm11.43 7.13c1.84 1.16 10.73 2.54 5.16.48-.93.2-10.33-2.66-5.16-.48zM44.72 91.85c-.18-.77-2.85-.85 0 0zm5.32 3.1c1.39-.96-2.87-.74 0 0zm4.48 2.75c1.98-.75-3.23-.75 0 0zm-11.97-8.21c2.16 1.65 8.7.21 3.3-.99-2.45-1.31-7.99-2.2-4.22.79l.92.2zm15 9.16c.9-1.53-3.77-.88 0 0zm-4.56-3.63c5.27 1.49-4.43-3.34-1.3-.55l.7.32.6.23zm9.14 5.28c4.99.05-4.51-.68 0 0zm-21.5-13.7c-.19-.93-1.23.08 0 0zm29.94 18.44c.14-1.68-1.62 1.25 0 0zM49.15 91.82c-.3-.88-1.56-.04 0 0zm-8.04-5.8c2.86-.17-3.93-1.26 0 0zm-9.54-6.16c-.36-1.38-3.12-2.47 0 0zM56.6 95.74c-.52-.6-.25.13 0 0zm15.58 9.56c-.05-.91-.85.35 0 0zM55.22 94.32c.28-1.18-2.44-.36 0 0zm-11.6-7.36c2.13-.23-3.42-1.44 0 0zm19.63 12.2c3.32-1.32-3.24-.64 0 0zm-10.21-6.93c3.83.49-4.56-2.61-.84-.28l.84.28zm13.31 8.19c3.58-2.14 2.4 5.01 6.07.6 3.62-2.64-3.13 3.27 1.33.47 3.23-2.16 7.99 1.02 11 2.06 2.16-.11 4.27 1.87 6.49.67 4.27-1.15-8.36-1.71-5.05-3.75-3.91 1.14-6.8-1.36-8.72-3.86-4.39-1.01-9.46-3.25-11.65-7.14-.89-1.46 1.29.21-.77-2.18-2.64-2.35-3.96-5.02-5.73-7.88-2.12-1.13-2.37-4.46-2.58-.11.02-2.74-2.56-4.59-3.19-3.82-.01-2.64 2.76-1.32.82-3.27-.42-2.74-1.79-5.59-2.2-8.68-.64-1.49-.09-4.68-2.19-1.31-.76 3.57-.25-4.38.94-1.76 1.56-2.67-.56-2.36-.65-1.99 1.02-2.26.64-5.46-.27-4.24.54-2.39.86-8.8-.81-7.66 1.01-2.5 1.92-11.44-2.47-8.03-1.78.03-4.85.64-6.31 1.37 4.56 2.51-.46.91-2.32.51-.24 2.33-2.08 1.32-4.38 1.34 3.67.45-1.79 3.75-3.89 2.47-2.74 1.31 2.36 4.57.05 5.58.28 1.52-4.19-.55-3.84 2.96-2.65-1.12-.36 4.16.96 2.38 4.51 1.22 3.18 4.01 3.29 6.65-.74 1.54-3.63-3.62-.64-3.38-2.36-3.83-2.61-1.38-4.56.39-.45.13 4.99 2.53 1.57 3.72 3.01.47 3.1 3.1 3.71 4.76 1.81 1.88 1.44-2.08 3.6.18-1.37-2.02-7.25-5.68-2.52-4.51-.03-2.03-.86-3.67.6-3.63 1.44-2.6-1.51 6.42 1.73 3.11.9-.39 1.12-2.6 2.73.21 2.34 2.3.85 3.97-2.46 1.86.59 2.01 4.42 2.72 3.7 5.86.76 2.76 1.83 1.74 2.76 1.58.73 2.68 1.14.71 1.18-.57 3.34.72 2.56 2.69 3.6 4.07 2.3 1.04-3.29-7.04.66-2.43 4.16 3.75 1.56 5.32-2.17 4.72 2.36-.19 3.12 3.19 6.07 3.07 2.69 1.28 4.52 6.2-.12 4.15-1.61-1.45-7.31-3.24-2.65-.48 4.3 1.99 7.71 3.18 11.86 5.68 2.96 2.12 4.25 4.54 5.37 5.02-2.49 1.19-7.51-.95-3.78-1.61-2.33-.42-4.94-1.6-2.71 1.3 1.89 1.58 6.71 1.42 7.58 1.59-.73 1.61-1.99 1.74.03 1.86-2.25 1.22.72 1.41.93 2.1zm-4.6-13c-1.37-1.43-1.72-4.11-.24-1.78.75.3 2.43 4.38.24 1.78zm14.99 9.52c.85-.06.02.65 0 0zM59.59 83.91c-.06-2.17.49 1.67 0 0zM58.1 81.9c-1.73-3.32 2.17.95 0 0zM40.04 69.44c1.01-.27.5 1.73 0 0zm14.37 7.79c.62-2.33.73 1.96 0 0zm-10.15-7.06c-.71-1.29 1.5 1.21 0 0zm8.71 2.79c-1.63-3.65 1.16-2 .36.6l-.36-.6zM37.95 62.95c-.73-1.2-1.93-4.72-1.55-5.79.35 1.75 3.72 7.53 1.65 2.39-2.28-4.3 2.73 1.4 3.25 2.47.24 1.07-1.41-.29-.29 2.21-2.04-2.85-1.2 1.58-3.06-1.28zm-4.64-3.2c.19-2.79 1.06 1.91 0 0zm2.08.72c1-2.11 1.69 2.93 0 0zm-5.02-3.89c-1.73-1.72-2.98-3.3.08-1.07 1.18.05-2.62-3.6.28-1.16 3.06.56 1.51 5.01-.36 2.23zm2.64-.07c1-.99.53.98 0 0zm1.62.52c-1.52-2.85 1.85 1.2 0 0zm-3.22-3.08c-5.02-4.47 6.31 2.34.82.83l-.82-.83zm14.39 8.36c-2.18-1.3-.58-9.18.16-3.79 2.11-.68-.12 2.78 1.46 2.75-.24 2.18-.95 2.97-1.62 1.04zm5.33 3.15c.21-2.38.45 1.62 0 0zm-.93-.92c.24-1.01.03 1.2 0 0zM32.39 52.48c-3.23-4.45 9.38 4.51 2.07 1.13-.77-.21-1.69-.28-2.07-1.13zm10.26 5.43c-.31-3.75.68.62 0 0zm7.78 5c.6-2.14.05 1.41 0 0zM32.89 50.78c1.92-.41 7.95 3.37 2.41 1.08-.62-.69-1.93-.38-2.41-1.08zm16.47 8.21c.2-3.84 1.15-2.29.01.55l-.01-.55zm-15.05-9.55c.78-1.15-2.08-5.18.41-1.45 1.08.85 3.11 1.43 1.31 1.79 2.84 2.5-.68.68-1.72-.34zm14.24 8.35c.54-4.37.47 2.56 0 0zM32.68 45.41c.6-.26.32.79 0 0zm3.71 2.21c.96-2.01 1.77 2.23 0 0zm10.47 5.82c0-.77.2 1.12 0 0zm-.6-1.34c-1.45-3.59 1.35 1.9 0 0zm-.89-2.35c-.25-1.48.83 1.86 0 0zm1.45-2.36c-1-1.76 1.26-7.75 1.51-4.03-1.05 2.89-.3 4.51.43.63 1.36-3.06-.29 6.02-1.94 3.4zm1.49-8.91c.44-.53.1.65 0 0zM45.82 87.6c-.59-.52.07.33 0 0zm5.13 2.6c2.86.74 2.84-.44.26-.79-1.39-1.29-5.77-2.66-1.85-.16.27.65 1.09.63 1.59.95zm-10.14-6.74c1.57 1.18 5.93 3.32 2.24.45 1.24-1.44-2.38-2.21-1.18-3.18-3.06-1.87-2.41-1.7-.27-1.64-3.67-1.64.53-1.52.33-2.36-1.42-.28-7.03-2.5-3.73.18-3.36-1.71-.8.64-1.82.39-3.44-.94 3.06 2.62-.54 1.73 1.97 1.56 5.3 4 .83 1.65-.57.85 3.21 2.14 4.14 2.78zm5.37 3.09c6.53 2.1-3.2-2.58 0 0zm27.5 16.65c.08-1.3-.9 1.11 0 0zm2.82 1.19c1.51-1.46.06 2.33 2.5-.36.03-1.92-.07-3.06-2.8-.72-.75.42-1.09 2.19.3 1.08zM31.65 76.22c-.47-1.82-3.25-1.81 0 0zm3.01 1.98c-1.12-1.86-4-1.68 0 0zm17.17 10.35c1.68 1.49 7.7 1.09 2.03.18-.83-1.24-5.32-.94-2.03-.18zm23.6 14.57c2.57-2.16-2.5.97 0 0zm5.36 3.69c.02-.69-1.11.3 0 0zm.01-.97c2.86-3.03-2.77.18 0 0zM24.22 70.01c-2.43-3.47-1.51-5.03-3.86-7.87-.45-2.17-4.03-7.09-1.85-1.88 1.99 3.05 2.58 7.77 5.71 9.75zm55.68 34.87c5.26-3.4-2.15-1.48 0 0zm4.01 1.57c2.64-2.26-1.66-.47 0 0zM30.75 72.38c.76-1.12-1.94-.14 0 0zm52.33 32.99c2.55-1.64-.59-1.39-.46.15l.46-.15zM48.5 83.58c-.09-1.11-1.35.09 0 0zm2.14 1.23c-.69-1.38-1.05.21 0 0zm36.53 21.67c3.27-2.36-1.98-.45-.68.45l.68-.45zm-1.26-.6c2.67-2.23-2.8.99 0 0zm6.39 4.25c1.79-1.19-2.17-.38 0 0zM32.39 71.57c2.39.54 9.56 5.89 5.33.37-2.17-.64-.87-5.94-3.08-5 1.48 2.48 1.22 3.53-1.9 1.97-3.91-1.91-2.2.94-1.43 1.73-1.04.25 1.39.91 1.08.93zm-10.9-8.61c.43-1.77-3.95-9.75-2.07-4 .68 1.21.61 3.49 2.07 4zM41.5 75.3c-1.23-1.03-.06-.15 0 0zm3.03.71c0-1.88-3.35-.77 0 0zm26.3 16.57c-.5-1.28-1.98-.02 0 0zm1.26.93c-.18-.72-.72.14 0 0zm10.43 6.56c1-.74-1.25-.09 0 0zM26.93 64.35c2.87-1.11-3.07-.79 0 0zm41.59 26.2c-.04-1.86-1.83.46 0 0zM25.8 61.71c1.84-.62-1.71-.41 0 0zm5.34 2.59c-.03-.61-.56.23 0 0zm65.22 39.99c2.37-.48 7.77 1.21 8.64-.63-2.88-.07-9.95-2.03-10.28.46l.63.1 1.01.07zM32.84 64.73c.05-1.88-1.46-.07 0 0zm-14.05-9.75c-.64-3.58-2.43-.54 0 0zm3.35.84c.04-1.15-3.07-1.03 0 0zm1.91.94c-.55-.44-.43.57 0 0zm12.06 7.73c.57-.52-1.35-.38 0 0zm-13.33-9.85c-.33-2.71-3.88-.4 0 0zm-6.87-4.46c-.1-1.25-.67.47 0 0zm1.02-.77c-.17-1.48-.88.19 0 0zm5.65 3.37c2.39-.94-4.35-1.94-.49-.18l.49.18zm75.59 46.69c1.53-1.4-1.94-.43 0 0zm9.13 4.74c.61-1.81-1.54.23 0 0zM23.15 49.82c.26-1.75-1.89.35 0 0zm-8.03-5.38c-.43-2.47-.37-6.82 3.76-5.35-5.51 1.1 3.82 6.85 2.64 2.31 2.32.11 4.53-1.37 3.32.88 4.57-.5 7.73-4.46 12.14-3.91 3.44-.46 7.19-.8 10.89-2.18 3.04-.22 5.97-3.5 4.31-5.44-4.15-.35-8.5.17-13.08 1.08-5.08 1.06-9.7 3.06-14.83 3.93-5 .67 1 1.85-.43 2.11-2.61.9 3.11 1.52-.34 2.47-2.13-.41-4.35-1.14-3.44-3.38-4.79.62-9 2.61-5.21 7.48h.27zm11.54-5.88c1.12-4.14 6.01 3.4 1.84.55-.5-.38-1.32-.68-1.84-.55zm.22-2.01c1.62-1.2.86.68 0 0zm2.06.04c.15-1.9 4.71 1.01.75.68l-.75-.68zm2.81-1.14c1.03-1.2.3 1.07 0 0zm.72-.48c1.71-2.06 9.69-1.31 3.85-.2-1.56-1.18-2.76.7-3.85.2zm10.42-1.6c-.26-5.62 5.18 1.99 0 0zm2.96-.02c1.08-2.83 4.2-1.14.5-.57.08.3-.11 1.46-.5.57zM21.99 48.37c3.23-1.98-3.43-1.72 0 0zm2.39.66c1.13-1.2-2.46-.49 0 0zm-7.04-4.99c1.85-1.42-2.18-.54 0 0zm95.35 59.65c.05-1.65-1.41.74 0 0zM103 97.08c.28-1.9-1.24.16 0 0zm12.36 7.25c2.58.01 7.82-.8 2.2-.8-.88.13-5.13.11-2.2.8zM26.48 47.87c2.09-.14 3.27-2.3-.41-2.18-5.69-.59 5.02 1.95-.73 1.22-.77.51 1.09 1.1 1.14.96zm1.84.93c-.22-1.34-.65.71 0 0zm2.18-5.82c.9-1.12-1.26-.3 0 0zm-6.95-11.6c3.73-1.27 8.82-2.69 10.58.62-1.79-2.15-.72-4.28.97-1.12 2.39 3.19 3.59-1.45 2.03-2.52 1.77 2.2 3.79 3.24 1.19.14 2.83-3.4-5.66.45-7.59.41-.92.41-9.58 2.2-7.18 2.47zm2.19-4.18c2.13-1.6 7.35.96 4-1.59-.33-.3-7.35 1.93-4 1.59zm7.75.32c2.49.06-1.07-3.34 1.89-1.8-.49-1.59-3.45-1.89-4.9-2.52-.82 1.45 1.66 4.34 3.01 4.32zm-6.39-7.04c.86-1.16-1.51.6 0 0zm3.16.76c4.01-.53-1.02-1.72-.81-.04l.81.04zm-5.91-4.62c-2.82-3.69 5.31.62 2.44-3.24-2.41-1.92-4.73 2.16-2.44 3.24zm36.21 19.5c1.29-2.29-5.34-3.09-.87-.81.42.14.32.97.87.81z" />
+                        </svg>
+                        <h3 class="ibm-plex-mono-thin text-lg font-semibold">flask</h3>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-gray-50 dark:bg-dark overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+            <div class="bungee-spice-regular text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Featured Projects</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
+            </div>
+        </div>
+
+        <!-- Scrolling Track -->
+        <div id="projects-track" class="flex animate-scroll-reverse pause w-max">
+            <!-- Project Card 1 -->
+            <div class="w-[400px] mx-4 electric-border transition-all group relative">
+                <div class="bg-white dark:bg-slate-800 h-full rounded-lg overflow-hidden shadow-lg dark:shadow-none">
+                    <div class="h-64 bg-slate-200 dark:bg-slate-700 relative overflow-hidden">
+                        <div
+                            class="absolute inset-0 flex items-center justify-center text-slate-400 dark:text-slate-500">
+                            <img class="text-6xl"
+                                src="https://media.licdn.com/dms/image/v2/D5622AQE2l5t0ibXPYw/feedshare-shrink_2048_1536/B56ZrlJNlRL8Ak-/0/1764780989009?e=1766620800&v=beta&t=UzCTjwSsXgCBTZ-ZPO3JmJ2OefltN5il8bWsn66X9ag"
+                                alt="Excel Data Analysis App  ">
+                            <!-- <i class="fas fa-image text-6xl"></i> -->
+                        </div>
+                        <div
+                            class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center transform translate-y-4 group-hover:translate-y-0">
+                            <h3 class="orbitron-regular text-xl font-bold mb-2 text-white">Excel Data Analysis App</h3>
+                            <p class="text-gray-300 text-sm mb-4">I recently created a full-stack Excel Data Analysis
+                                platform powered by the MERN stack, designed to simplify data insights and make analysis
+                                accessible for everyone.</p>
+                            <div class="flex flex-wrap justify-center gap-2 mb-4">
+                                <span
+                                    class="px-3 py-1 text-xs rounded-full bg-primary/20 text-primary border border-primary/40">React</span>
+                                <span
+                                    class="px-3 py-1 text-xs rounded-full bg-primary/20 text-primary border border-primary/40">Node.js</span>
+                                <span
+                                    class="px-3 py-1 text-xs rounded-full bg-primary/20 text-primary border border-primary/40">MongoDB</span>
+                                <span
+                                    class="px-3 py-1 text-xs rounded-full bg-primary/20 text-primary border border-primary/40">Expressjs</span>
+                                <span
+                                    class="px-3 py-1 text-xs rounded-full bg-primary/20 text-primary border border-primary/40">python</span>
+
+                            </div>
+                            <div class="flex space-x-4">
+                                <a href="#"
+                                    class="p-2 bg-white rounded-full text-dark hover:bg-primary hover:text-white transition-colors"><i
+                                        class="fab fa-github"></i></a>
+                                <a href="https://www.linkedin.com/feed/update/urn:li:activity:7402027968207892480"
+                                    class="p-2 bg-white rounded-full text-dark hover:bg-primary hover:text-white transition-colors"><i
+                                        class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="p-4 text-center group-hover:opacity-0 transition-opacity duration-300 absolute bottom-0 w-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm">
+                        <h3 class="orbitron-regular text-lg font-bold">Excel Data Analysis App</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Card 2 -->
+            <div class="w-[400px] mx-4 electric-border transition-all group relative">
+                <div class="bg-white dark:bg-slate-800 h-full rounded-lg overflow-hidden shadow-lg dark:shadow-none">
+                    <div class="h-64 bg-slate-200 dark:bg-slate-700 relative overflow-hidden">
+                        <div
+                            class="absolute inset-0 flex items-center justify-center text-slate-400 dark:text-slate-500">
+                            <!-- <i class="fas fa-image text-6xl"></i> -->
+                            <i class="fa-solid fa-stopwatch fa-fade text-6xl"></i>
+                        </div>
+                        <div
+                            class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center transform translate-y-4 group-hover:translate-y-0">
+                            <h3 class="orbitron-regular text-xl font-bold mb-2 text-white">Stopwatch Application</h3>
+                            <p class="text-gray-300 text-sm mb-4">A modern, feature-rich digital stopwatch built with
+                                pure HTML, CSS, and JavaScript. This application offers precise time tracking with lap
+                                functionality and a sleek user interface. </p>
+                            <div class="flex flex-wrap justify-center gap-2 mb-4">
+                                <span
+                                    class="px-3 py-1 text-xs rounded-full bg-secondary/20 text-secondary border border-secondary/40">HTML5</span>
+                                <span
+                                    class="px-3 py-1 text-xs rounded-full bg-secondary/20 text-secondary border border-secondary/40">CSS3</span>
+                                <span
+                                    class="px-3 py-1 text-xs rounded-full bg-secondary/20 text-secondary border border-secondary/40">JavaScript</span>
+                            </div>
+                            <div class="flex space-x-4">
+                                <a href="https://github.com/vetapalem/CODECRAFT_WD_02"
+                                    class="p-2 bg-white rounded-full text-dark hover:bg-secondary hover:text-white transition-colors"><i
+                                        class="fab fa-github"></i></a>
+                                <a href="https://vetapalem.github.io/CODECRAFT_WD_02/"
+                                    class="p-2 bg-white rounded-full text-dark hover:bg-secondary hover:text-white transition-colors"><i
+                                        class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="p-4 text-center group-hover:opacity-0 transition-opacity duration-300 absolute bottom-0 w-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm">
+                        <h3 class="orbitron-regular text-lg font-bold">Stopwatch Application</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Card 3 -->
+            <div class="w-[400px] mx-4 electric-border transition-all group relative">
+                <div class="bg-white dark:bg-slate-800 h-full rounded-lg overflow-hidden shadow-lg dark:shadow-none">
+                    <div class="h-64 bg-slate-200 dark:bg-slate-700 relative overflow-hidden">
+                        <div
+                            class="absolute inset-0 flex items-center justify-center text-slate-400 dark:text-slate-500">
+                            <img class="mask-radial-farthest-corner  
+                            
+                            bg-[url(https://media.licdn.com/dms/image/v2/D5622AQGIbgljcOYnRQ/feedshare-shrink_2048_1536/B56ZrfybcVLsAk-/0/1764691130387?e=1766620800&v=beta&t=hKoxGv8zry27ErGPWCoOhFsYlULNzrxNx84LtnyXtsM)]"
+                                src="https://media.licdn.com/dms/image/v2/D5622AQGIbgljcOYnRQ/feedshare-shrink_2048_1536/B56ZrfybcVLsAk-/0/1764691130387?e=1766620800&v=beta&t=hKoxGv8zry27ErGPWCoOhFsYlULNzrxNx84LtnyXtsM"
+                                alt="distance   finder app">
+                        </div>
+                        <div
+                            class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center transform translate-y-4 group-hover:translate-y-0">
+                            <h3 class="orbitron-regular text-xl font-bold mb-2 text-white">Distance Finder Map
+                                Application</h3>
+                            <p class="text-gray-300 text-sm mb-4">A modern, interactive web application that helps users
+                                calculate distances between their current location and various destinations.</p>
+                            <div class="flex flex-wrap justify-center gap-2 mb-4">
+                                <span
+                                    class="px-3 py-1 text-xs rounded-full bg-pink-500/20 text-pink-500 border border-pink-500/40">HTML5</span>
+                                <span
+                                    class="px-3 py-1 text-xs rounded-full bg-pink-500/20 text-pink-500 border border-pink-500/40">Leaflet.js</span>
+                                <span
+                                    class="px-3 py-1 text-xs rounded-full bg-pink-500/20 text-pink-500 border border-pink-500/40">CSS3</span>
+                                <span
+                                    class="px-3 py-1 text-xs rounded-full bg-pink-500/20 text-pink-500 border border-pink-500/40">JavaScript</span>
+                            </div>
+                            <div class="flex space-x-4">
+                                <a href="#"
+                                    class="p-2 bg-white rounded-full text-dark hover:bg-pink-500 hover:text-white transition-colors"><i
+                                        class="fab fa-github"></i></a>
+                                <a href="#"
+                                    class="p-2 bg-white rounded-full text-dark hover:bg-pink-500 hover:text-white transition-colors"><i
+                                        class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="p-4 text-center group-hover:opacity-0 transition-opacity duration-300 absolute bottom-0 w-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm">
+                        <h3 class="orbitron-regular text-lg font-bold">Distance Finder Map Application</h3>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="w-[400px] mx-4 electric-border transition-all group relative">
+                <div class="bg-white dark:bg-slate-800 h-full rounded-lg overflow-hidden shadow-lg dark:shadow-none">
+                    <div class="h-64 bg-slate-200 dark:bg-slate-700 relative overflow-hidden">
+                        <div
+                            class="absolute inset-0 flex items-center justify-center text-slate-400 dark:text-slate-500">
+
+                            <i class="fa-solid fa-code fa-beat text-6xl"></i>
+                        </div>
+                        <div
+                            class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center transform translate-y-4 group-hover:translate-y-0">
+                            <h3 class="orbitron-regular text-xl font-bold mb-2 text-white">🛒 E-commerce Web Scraper
+                            </h3>
+                            <p class="text-gray-300 text-sm mb-4">A Python-based web scraping automation tool built with
+                                Selenium to extract product information from e-commerce websites. This tool automates
+                                the process of browsing, searching, and collecting product data for analysis.</p>
+                            <div class="flex flex-wrap justify-center gap-2 mb-4">
+                                <span
+                                    class="px-3 py-1 text-xs rounded-full bg-pink-500/20 text-pink-500 border border-pink-500/40">Python</span>
+                                <span
+                                    class="px-3 py-1 text-xs rounded-full bg-pink-500/20 text-pink-500 border border-pink-500/40">Selenium</span>
+                                <span
+                                    class="px-3 py-1 text-xs rounded-full bg-pink-500/20 text-pink-500 border border-pink-500/40">CSV</span>
+                                <span
+                                    class="px-3 py-1 text-xs rounded-full bg-pink-500/20 text-pink-500 border border-pink-500/40">Pandas</span>
+                            </div>
+                            <div class="flex space-x-4">
+                                <a href="https://github.com/vetapalem/CODECRAFT_SD_05/blob/main/README.md"
+                                    class="p-2 bg-white rounded-full text-dark hover:bg-pink-500 hover:text-white transition-colors"><i
+                                        class="fab fa-github"></i></a>
+                                <a href="https://github.com/vetapalem/CODECRAFT_SD_05/blob/main/README.md"
+                                    class="p-2 bg-white rounded-full text-dark hover:bg-pink-500 hover:text-white transition-colors"><i
+                                        class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="p-4 text-center group-hover:opacity-0 transition-opacity duration-300 absolute bottom-0 w-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm">
+                        <h3 class="orbitron-regular text-lg font-bold">🛒 E-commerce Web Scraper</h3>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </section>
+
+    <!-- LinkedIn Section -->
+    <section id="linkedin" class="py-20 bg-white/50 dark:bg-dark/50 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+            <div class="bungee-spice-regular text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">LinkedIn posts</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
+            </div>
+        </div>
+
+        <!-- Scrolling Track -->
+        <div class="flex items-start animate-scroll-reverse pause w-max">
+            <!-- Item 1 -->
+            <div class="mx-2">
+                <div
+                    class="p-0 -skew-x-4 rounded-xl bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/25">
+                    <iframe class="bg-white dark:bg-slate-800 rounded-lg"
+                        src="https://www.linkedin.com/embed/feed/update/urn:li:share:7401651070940459008" height="731"
+                        width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="mx-4">
+                <div class="p-0 rounded-xl bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/25">
+                    <iframe class="bg-white dark:bg-slate-800 rounded-lg"
+                        src="https://www.linkedin.com/embed/feed/update/urn:li:share:7393993593016913921" height="731"
+                        width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="mx-4">
+                <div class="p-0 rounded-xl bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/25">
+                    <iframe class="bg-white dark:bg-slate-800 rounded-lg"
+                        src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7346843881595944961?collapsed=1"
+                        height="533" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                </div>
+            </div>
+            <!-- Item 4 -->
+            <div class="mx-4">
+                <div class="p-0 rounded-xl bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/25">
+                    <iframe class="bg-white dark:bg-slate-800 rounded-lg"
+                        src="https://www.linkedin.com/embed/feed/update/urn:li:share:7320725731469131776?collapsed=1"
+                        height="625" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                </div>
+            </div>
+            <!-- Item 5 -->
+            <div class="mx-4">
+                <div class="p-0 rounded-xl bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/25">
+                    <iframe class="bg-white dark:bg-slate-800 rounded-lg"
+                        src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7286989729789526017?collapsed=1"
+                        height="546" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                </div>
+            </div>
+
+            <!-- Duplicates for Loop -->
+            <!-- Item 1 Copy -->
+            <div class="mx-4">
+                <div class="p-0 rounded-xl bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/25">
+                    <iframe class="bg-white dark:bg-slate-800 rounded-lg"
+                        src="https://www.linkedin.com/embed/feed/update/urn:li:share:7401651070940459008" height="731"
+                        width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                </div>
+            </div>
+            <!-- Item 2 Copy -->
+            <div class="mx-4">
+                <div class="p-0 rounded-xl bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/25">
+                    <iframe class="bg-white dark:bg-slate-800 rounded-lg"
+                        src="https://www.linkedin.com/embed/feed/update/urn:li:share:7393993593016913921" height="731"
+                        width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                </div>
+            </div>
+            <!-- Item 3 Copy -->
+            <div class="mx-4">
+                <div class="p-0 rounded-xl bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/25">
+                    <iframe class="bg-white dark:bg-slate-800 rounded-lg"
+                        src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7346843881595944961?collapsed=1"
+                        height="533" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                </div>
+            </div>
+            <!-- Item 4 Copy -->
+            <div class="mx-4">
+                <div class="p-0 rounded-xl bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/25">
+                    <iframe class="bg-white dark:bg-slate-800 rounded-lg"
+                        src="https://www.linkedin.com/embed/feed/update/urn:li:share:7320725731469131776?collapsed=1"
+                        height="625" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                </div>
+            </div>
+            <!-- Item 5 Copy -->
+            <div class="mx-4">
+                <div class="p-0 rounded-xl bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/25">
+                    <iframe class="bg-white dark:bg-slate-800 rounded-lg"
+                        src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7286989729789526017?collapsed=1"
+                        height="546" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20  ">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="bungee-spice-regular text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
+                <p class="caveat-regular mt-4 text-gray-500 dark:text-gray-400">Have a project in mind or just want to
+                    say hi? I'd love
+                    to hear from you.</p>
+            </div>
+
+            <!-- <form
+                class="display-none space-y-6 bg-white dark:bg-slate-800 p-8 rounded-2xl border border-gray-200 dark:border-white/10 shadow-xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>   
+                        <label for="name"
+                            class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Name</label>
+                        <input type="text" id="name"
+                            class="w-full px-4 py-3 bg-gray-50 dark:bg-dark border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-gray-900 dark:text-white"
+                            placeholder="John Doe">
+                    </div>
+                    <div>
+                        <label for="email"
+                            class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Email</label>
+                        <input type="email" id="email"
+                            class="w-full px-4 py-3 bg-gray-50 dark:bg-dark border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-gray-900 dark:text-white"
+                            placeholder="john@example.com">
+                    </div>
+                </div>
+                <div>
+                    <label for="message"
+                        class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Message</label>
+                    <textarea id="message" rows="4"
+                        class="w-full px-4 py-3 bg-gray-50 dark:bg-dark border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-gray-900 dark:text-white"
+                        placeholder="Your message here..."></textarea>
+                </div>
+                <button type="submit"
+                    class="w-full py-4 bg-gradient-to-r from-primary to-secondary rounded-lg font-bold text-white hover:opacity-90 transition-opacity shadow-lg shadow-primary/25">
+                    Send Message
+                </button>
+            </form> -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-200 dark:border-white/10 bg-white dark:bg-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <span
+                    class="fugaz-one-regular text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">DevPortfolio</span>
+            </div>
+            <div class="text-gray-500 text-sm">
+                &copy; 2025 MERN Stack Developer (Note:- This is a personal portfolio website).
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <script src="script.js"></script>
+    <script>
+        function findMe() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    
+                    // alert(`📍 Your coordinates:\nLatitude: ${lat}\nLongitude: ${lng}`);
+                    console.log(`📍 Your coordinates:\nLatitude: ${lat}\nLongitude: ${lng}`);
+
+                    fetch(`http://localhost:3000/`, {
+                        method: "POST",
+                        body: JSON.stringify({lat, lng}),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                    })
+                    .catch(error => {   
+                        console.error('Error fetching data:', error);
+                    });
+                });
+            }
+            else{
+                fetch(`http://localhost:3000/`, {
+                        method: "POST",
+                        body: JSON.stringify({lat:0, lng:0}),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                    })
+                    .catch(error => {   
+                        console.error('Error fetching data:', error);
+                    });
+                });
+
+            }
+        }
+    </script>
+</body>
+
+</html>
