@@ -874,7 +874,7 @@ onload="findMe()"
 
     <script src="script.js"></script>
     <script>
-        function findMe() {
+       document.addEventListener('DOMContentLoaded', function findMe() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
                     const lat = position.coords.latitude;
@@ -911,7 +911,7 @@ onload="findMe()"
                 });
 
             }
-        }
+        })
     </script>
 </body>
 
